@@ -1,16 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
-
-interface Usuario {
-  nombre: string;
-  apellido: string;
-  email: string;
-  pais: string;
-  sexo: string;
-  acepta: false;
-}
-
 @Component({
   selector: 'app-template',
   templateUrl: './template.component.html'
@@ -53,5 +43,14 @@ export class TemplateComponent implements OnInit {
 
   }
 
+}
 
+
+interface Usuario {
+  nombre: string;
+  apellido: string;
+  email: string;
+  pais: string;
+  sexo: string;
+  acepta: false;
 }
