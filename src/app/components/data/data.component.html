@@ -1,49 +1,122 @@
 <h4>Formularios <small>data</small></h4>
-<hr>
+<hr />
 <form [formGroup]="formulary" (ngSubmit)="guardar()" novalidate="">
-
-    <div>
-
+    <div formGroupName="nombrecompleto">
         <div class=" form-group row">
             <label class="col-2 col-form-label">Nombre</label>
             <div class="col-8">
-                <input [ngClass]="{'is-invalid': !formulary.get('nombre').valid && formulary.get('nombre').touched }" class="form-control" type="text" placeholder="Nombre" formControlName="nombre">
-                <div *ngIf="formulary.controls['nombre'].errors?.required" class="invalid-feedback">Este campo es requerido</div>
-                <div *ngIf="formulary.controls['nombre'].errors?.minlength" class="invalid-feedback">Debe contener al menos {{ formulary.controls['nombre'].errors?.minlength.requiredLength }} caracteres</div>
+                <input [ngClass]="{
+            'is-invalid':
+              !formulary.get('nombrecompleto.nombre').valid &&
+              formulary.get('nombrecompleto.nombre').touched
+          }" class="form-control" type="text" placeholder="Nombre" formControlName="nombre" />
+                <div *ngIf="formulary.get('nombrecompleto.nombre').errors?.required" class="invalid-feedback">
+                    Este campo es requerido
+                </div>
+                <div *ngIf="formulary.get('nombrecompleto.nombre').errors?.minlength" class="invalid-feedback">
+                    Debe contener al menos {{ formulary.get("nombrecompleto.nombre").errors?.minlength .requiredLength }} caracteres
+                </div>
             </div>
         </div>
 
         <div class="form-group row">
             <label class="col-2 col-form-label">Apellido</label>
             <div class="col-8 ">
-                <input [ngClass]="{'is-invalid': !formulary.get('apellido').valid && formulary.get('apellido').touched }" class="form-control" type="text" placeholder="Apellido" formControlName="apellido">
-                <div *ngIf="formulary.controls['apellido'].errors?.required" class="invalid-feedback">Este campo es requerido</div>
-                <div *ngIf="formulary.controls['apellido'].errors?.minlength" class="invalid-feedback">Debe contener al menos {{ formulary.controls['apellido'].errors?.minlength.requiredLength }} caracteres</div>
+                <input [ngClass]="{
+            'is-invalid':
+              !formulary.get('nombrecompleto.apellido').valid &&
+              formulary.get('nombrecompleto.apellido').touched
+          }" class="form-control" type="text" placeholder="Apellido" formControlName="apellido" />
+                <div *ngIf="formulary.get('nombrecompleto.apellido').errors?.required" class="invalid-feedback">
+                    Este campo es requerido
+                </div>
+                <div *ngIf="formulary.get('nombrecompleto.apellido').errors?.minlength" class="invalid-feedback">
+                    Debe contener al menos {{ formulary.get("nombrecompleto.apellido").errors?.minlength .requiredLength }} caracteres
+                </div>
             </div>
         </div>
-
     </div>
 
     <div class="form-group row">
         <label class="col-2 col-form-label">Correo</label>
         <div class="col-md-8">
-
-            <input [ngClass]="{'is-invalid': !formulary.get('correo').valid && formulary.get('correo').touched }" class="form-control" type="email " placeholder="Correo electrónico" formControlName="correo">
-            <div *ngIf="formulary.controls['correo'].errors?.required" class="invalid-feedback">Este campo es requerido</div>
-            <div *ngIf="formulary.controls['correo'].errors?.pattern" class="invalid-feedback">El campo no tiene formato de email</div>
+            <input [ngClass]="{
+          'is-invalid':
+            !formulary.get('correo').valid && formulary.get('correo').touched
+        }" class="form-control" type="email " placeholder="Correo electrónico" formControlName="correo" />
+            <div *ngIf="formulary.controls['correo'].errors?.required" class="invalid-feedback">
+                Este campo es requerido
+            </div>
+            <div *ngIf="formulary.controls['correo'].errors?.pattern" class="invalid-feedback">
+                El campo no tiene formato de email
+            </div>
         </div>
     </div>
 
+    <div class="form-group row">
+        <label class="col-2 col-form-label">Username</label>
+        <div class="col-md-8">
+            <input [ngClass]="{
+          'is-invalid':
+            !formulary.get('username').valid &&
+            formulary.get('username').touched
+        }" class="form-control" type="text" placeholder="username" formControlName="username" />
+            <div *ngIf="formulary.controls['username'].errors?.required" class="invalid-feedback">
+                Este campo es requerido
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label class="col-2 col-form-label">Password</label>
+        <div class="col-md-8">
+            <input [ngClass]="{
+          'is-invalid':
+            !formulary.get('password1').valid &&
+            formulary.get('password1').touched
+        }" class="form-control" type="password" placeholder="password" formControlName="password1" />
+            <div *ngIf="formulary.controls['password1'].errors?.required" class="invalid-feedback">
+                Este campo es requerido
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label class="col-2 col-form-label">Repetir Password</label>
+        <div class="col-md-8">
+            <input [ngClass]="{
+          'is-invalid':
+            !formulary.get('password2').valid &&
+            formulary.get('password2').touched
+        }" class="form-control" type="password" placeholder="password" formControlName="password2" />
+            <div *ngIf="formulary.controls['password2'].errors?.required" class="invalid-feedback">
+                Este campo es requerido
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label class="col-2 col-form-label">Pasatiempos</label>
+        <div class="col-md-8" formArrayName="pasatiempos">
+            <input *ngFor="
+          let items of formulary.get('pasatiempos').controls;
+          let i = index
+        " type="text" name="pasatiempos" [formControlName]="i" class="form-control" />
+        </div>
+        <button class="btn btn-primary" type="button" (click)="agregarPasatiempo()">
+      Nuevo
+    </button>
+    </div>
 
     <div class="form-group row">
         <label class="col-2 col-form-label">&nbsp;</label>
         <div class="input-group col-md-8">
             <button type="submit" class="btn btn-outline-primary">
-                Guardar
-            </button>
+        Guardar
+      </button>
         </div>
     </div>
 
-    {{formulary.valid}}
-
+    {{ formulary.valid }}
+    <br /> {{ formulary.status }}
 </form>
